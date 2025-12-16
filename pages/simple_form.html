@@ -86,8 +86,8 @@
         const pwd = document.querySelector('#pwd');
         const pwdError = document.querySelector('.pwd-error');
         pwd.addEventListener('input', () => {
-            let pwdRegex = /^[a-zA-Z0-9]{8,}$/;
-            pwdError.textContent = pwdRegex.test(pwd.value) ? "" : "Min 8 characters";
+            let pwdRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            pwdError.textContent = pwdRegex.test(pwd.value) ? "" : "Wrong format";
         });
     </script>
 </body>
