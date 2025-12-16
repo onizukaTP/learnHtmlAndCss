@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Pen demo</title>
+    <style>
+        body {padding: 2em;}
+
+        .headerContainer {
+            display: flex;
+            flex-flow: column wrap;
+            align-content: center;
+            background: tomato;
+            font-weight: bold;
+            color: white;
+            padding: 10px;
+        }
+
+        .footerContainer {
+            display: flex;
+            flex-flow: column wrap;
+            align-content: center;
+            background: lightgreen;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .mainContainer {
+            display: flex;
+            flex-flow: row wrap;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .mainContentItem {
+            text-align: left;
+            background: deepskyblue;
+            flex: 3 0px;
+            order: 2;
+        }
+
+        article {
+            padding: 10px;
+            margin: 10px;
+            background: aqua;
+        }
+
+        .sideBarLeftItem {background: gold; order: 1;}
+        .sideBarRightItem {background: hotpink; order: 3;}
+
+        .sideBarItem {flex: 1 0 0; border: 0px solid green;}
+    </style>
+</head>
+<body>
+    <header class="headerContainer"><h1>HEADER - Sample Flexbox example</h1></header>
+    <div class="mainContainer">
+        <section class="mainContentItem">
+            <article>
+                <h2>First Article</h2>
+                <p>Tacos actually microdosing.</p>
+            </article>
+            <article>
+                <h2>Second Article</h2>
+            </article>
+            <article>
+                <h2>Third Article</h2>
+            </article>
+        </section>
+        <sideBar class="sideBarItem sideBarLeftItem"><div class="center"><p>Left side bar</p></div></sideBar>
+        <sideBar class="sideBarItem sideBarRightItem"><div class="center"><p>Right side bar</p></div></sideBar>
+    </div>
+    <footer class="footerContainer">Footer</footer>
+</body>
+</html>
