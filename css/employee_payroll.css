@@ -1,54 +1,29 @@
-html, input {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
 body {
-    width: 100%;
-    margin: 0 auto;
+    margin: 0;
+    height: 100%;
 }
 
-.header-container {
+.header {
+    padding: 15px 0;
+    background-color: white;
+}
+
+.header-content {
     display: flex;
-    flex-flow: column wrap;
-    background: tomato;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-form {
-    margin-top: 50px;
-}
-
-div {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
+    border: 1px solid green;
 }
 
-.main-container {
-    display: flex;
-    flex-flow: column wrap;
-    align-content: center;
-}
-
-.form-header {
-    background: lime;
+.emp-text {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    letter-spacing: 0px;
+    color: darkolivegreen;
     font-weight: bold;
-    margin-bottom: 10px;
+    text-transform: capitalize;
 }
 
-.row-container {
-    margin-bottom: 15px;
-}
+.emp-payroll {color: darkslategrey;}
 
-label {
-    text-align: right;
-    width: 30%;
-    margin-right: 2%;
-}
-
-input {
-    flex: auto;
-}
-
+* {box-sizing: border-box;}
