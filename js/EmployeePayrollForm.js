@@ -24,15 +24,22 @@ window.addEventListener('DOMContentLoaded', (event) => {
 const save = () => {
     try {
         let employeePayrollData = createEmployeePayroll();
-        // createAndUpdateStorage(employeePayrollData);
+        createAndUpdateStorage(employeePayrollData);
     } catch (e) {
         return;
     }
 };
 
-// function createAndUpdateStorage(employeePayrollData) {
-
-// }
+function createAndUpdateStorage(employeePayrollData) {
+    let employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
+    if (employeePayrollList != undefined) {
+        employeePayrollList.push(employeePayrollData);
+    } else {
+        employeePayrollList = [employeePayrollData]
+    }
+    alert(employeePayrollData.toString());
+    localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
+}
 
 const createEmployeePayroll = () => {
     let employeePayrollData = new EmployeePayrollData();
@@ -55,9 +62,9 @@ const createEmployeePayroll = () => {
 }
 
 const getSelectedValues = (propertyValue) => {
-    let allItems = document.querySelector(propertyValue);
+    let allItems = document.querySelectorAll(propertyValue);
     let selItems = [];
-    allItems.array.forEach(item => {
+    allItems.forEach(item => {
         if(item.checked) selItems.push(item.value);
     });
     return selItems;
