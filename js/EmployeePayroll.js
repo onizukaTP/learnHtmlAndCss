@@ -24,37 +24,44 @@ class EmployeePayrollData {
     set salary(salary) {this._salary = salary;}
 
     get startDate() {return this._startDate;}
-    set startDate(startDate) {this._startDate = startDate;}
+    set startDate(startDate) {
+        let now = new Date();
+        if (startDate > now) throw 'start date is a future date';
+        var diff = Math.abs(now.getTime() - startDate.getTime());
+        if (diff / (1000 * 60 * 60 * 24) > 30)
+            throw 'start date is beyond 30 days';
+        this._startDate = startDate;
+    }
 
     get note() {return this._note;}
     set note(note) {this._note = note;}
 
     // method
-    toString() {
-        const options = {year: 'numeric', month: 'month', day: 'numeric'};
-        const empDate = !this.startDate ? "undefined" :
-                        this.startDate;
-        return "id=" + this.id + ", name=" + this.name + ", gender=" + this.gender + 
-        ", profilePic=" + this.profilePic + ", department=" + this.department + 
-        ", salary" + this.salary + ", startDate=" + empDate + ", note=" + this.note; 
-    }
-
     // toString() {
-    // const options = { year: 'numeric', month: 'long', day: 'numeric' };
-
-    // const empDate = this.startDate
-    //     ? new Date(this.startDate).toLocaleDateString("en-US", options)
-    //     : "undefined";
-
-    // return `
-    // id=${this.id},
-    // name=${this.name},
-    // gender=${this.gender},
-    // department=${this.department},
-    // salary=${this.salary},
-    // startDate=${empDate},
-    // note=${this.note}
-    // `;
+    //     const options = {year: 'numeric', month: 'month', day: 'numeric'};
+    //     const empDate = !this.startDate ? "undefined" :
+    //                     this.startDate;
+    //     return "id=" + this.id + ", name=" + this.name + ", gender=" + this.gender + 
+    //     ", profilePic=" + this.profilePic + ", department=" + this.department + 
+    //     ", salary" + this.salary + ", startDate=" + empDate + ", note=" + this.note; 
     // }
+
+    toString() {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+    const empDate = this.startDate
+        ? new Date(this.startDate).toLocaleDateString("en-US", options)
+        : "undefined";
+
+    return `
+    id=${this.id},
+    name=${this.name},
+    gender=${this.gender},
+    department=${this.department},
+    salary=${this.salary},
+    startDate=${empDate},
+    note=${this.note}
+    `;
+    }
 
 }
