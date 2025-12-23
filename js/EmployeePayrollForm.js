@@ -1,3 +1,6 @@
+let isUpdated = false;
+let empPayrollObj = {};
+
 window.addEventListener('DOMContentLoaded', (event) => {
    const name = document.querySelector('#name');
    const textError = document.querySelector('.text-error');
@@ -19,6 +22,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
    salary.addEventListener('input', () => {
         output.textContent = salary.value;
    });
+
+   checkForUpdate();
 });
 
 const save = () => {
@@ -60,6 +65,7 @@ const createEmployeePayroll = () => {
     " " + getInputValueById('#year');
     employeePayrollData.startDate = Date.parse(date);
     // alert(employeePayrollData.toString());
+    // console.log('Data created with id: ' + employeePayrollData.id);
     return employeePayrollData;
 }
 
@@ -77,6 +83,22 @@ const getInputValueById = (id) => {
     return value;
 }
 
+const setForm = () => {
+    // console.log("setForm called");
+    // console.log("empPayrollObj:", empPayrollObj);
+    setValue('#name', empPayrollObj._name);
+    setSelectedValues('[name=profile]', empPayrollObj._profilePic);
+    setSelectedValues('[name=gender]', empPayrollObj._gender);
+    setSelectedValues('[name=department]', empPayrollObj._department);
+    setValue('#salary', empPayrollObj._salary);
+    setTextValue('.salary-output', empPayrollObj._salary);
+    setValue('#note', empPayrollObj._note);
+    const date = new Date(empPayrollObj._startDate);
+    setValue('#day', date.getDate().toString());
+    setValue('#month', date.toLocaleString('en-GB', { month: 'short' }));
+    setValue('#year', date.getFullYear().toString());
+};
+
 const resetForm = () => {
     setValue('#name','');
     unSetSelectedValues('[name=profile]');
@@ -84,9 +106,23 @@ const resetForm = () => {
     unSetSelectedValues('[name=department]');
     setValue('#salary','400000');
     setValue('#note','');
-    setValue('#day','1');
-    setValue('#month','Jan');
-    setValue('#year','2020');
+    setSelectedIndex('#day', 0);
+    setSelectedIndex('#month', 0);
+    setSelectedIndex('#year', 0);
+};
+
+const setSelectedValues = (propertyValue, value) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    allItems.forEach(item => {
+        if (Array.isArray(value)) {
+            if (value.includes(item.value)) {
+                item.checked = true;
+            }
+        }
+        else if (item.value === value) {
+            item.checked = true;
+        }
+    })
 };
 
 const unSetSelectedValues = (propertyValue) => {
@@ -104,4 +140,17 @@ const setTextValue = (id, value) => {
 const setValue = (id, value) => {
     const element = document.querySelector(id);
     element.value = value;
+};
+
+const setSelectedIndex = (id, index) => {
+    const element = document.querySelector(id);
+    element.selectedIndex = index;
+}
+
+const checkForUpdate = () => {
+    let empPayrollJson = localStorage.getItem('editEmp');
+    isUpdated = empPayrollJson ? true : false;
+    if (!isUpdated) return;
+    empPayrollObj = JSON.parse(empPayrollJson);
+    setForm();
 };

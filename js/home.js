@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   empPayrollList = getEmployeePayrollDataFromStorage();
   document.querySelector(".emp-count").textContent = empPayrollList.length;
   createInnerHtml();
-  // localStorage.removeItem('editEmp');
+  localStorage.removeItem('editEmp');
 });
 
 const getEmployeePayrollDataFromStorage = () => {
@@ -66,8 +66,8 @@ const getDeptHtml = (deptList) => {
 };
 
 const remove = (node) => {
-  console.log("Clicked id:", node.id, typeof node.id);
-  let empPayrollData = empPayrollList.find(data => data._id === Number(node.id));
+  // console.log("Clicked id:", node.id, typeof node.id);
+  let empPayrollData = empPayrollList.find(data => data._id == node.id);
   if(!empPayrollData) return;
   const index = empPayrollList.map(empData => empData._id)
                               .indexOf(empPayrollData._id);
@@ -75,4 +75,11 @@ const remove = (node) => {
   localStorage.setItem('EmployeePayrollList', JSON.stringify(empPayrollList));
   document.querySelector(".emp-count").textContent = empPayrollList.length;
   createInnerHtml();
+};
+
+const update = (node) => {
+  let empPayrollData = empPayrollList.find(empData => empData._id == node.id);
+  if(!empPayrollData) return;
+  localStorage.setItem('editEmp', JSON.stringify(empPayrollData));
+  window.location.replace(siteProperties.add_emp_payroll_page);
 };
