@@ -18,7 +18,7 @@
     </div>
   </header>
   <div class="form-content">
-    <form class="form" action="#" onreset = "resetForm()" onsubmit="return save()">
+    <form class="form" action="#" onreset = "resetForm()" onsubmit="return save(event)">
       <div class="form-head">Employee Payroll Form</div>
       <div class="row-content">
         <label class="label text" for="name">Name</label>
@@ -81,7 +81,7 @@
       </div>
       <div class="row-content">
         <label for="startDate" class="label text">Start Date</label>
-        <div>
+        <div id="date">
           <select name="Day" id="day">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -127,7 +127,7 @@
             <option value="Sep">Sep</option>
             <option value="Oct">Oct</option>
             <option value="Nov">Nov</option>
-            <option value="Dec">Dev</option>
+            <option value="Dec">Dec</option>
           </select>
           <select name="Year" id="year">
             <option value="2020">2020</option>
@@ -137,6 +137,7 @@
             <option value="2024">2024</option>
             <option value="2025">2025</option>
           </select>
+          <error-output class="date-error" for="startDate"></error-output>
         </div>
       </div>
       <div class="row-content">
