@@ -34,14 +34,14 @@ const createInnerHtml = () => {
         <td>${empPayrollData._gender}</td>
         <td>${getDeptHtml(empPayrollData._department)}</td>
         <td>${empPayrollData._salary}</td>
-        <td>${new Date(empPayrollData._startDate).toLocaleDateString()}</td>
+        <td>${stringifyDate(empPayrollData._startDate)}</td>
         <td>
           <div class="actions">
-            <img name="${empPayrollData._id}"
+            <img id="${empPayrollData._id}"
                  onclick="remove(this)"
                  src="../assets/icons/icons8-delete.svg"
                  alt="delete">
-            <img name="${empPayrollData._id}"
+            <img id="${empPayrollData._id}"
                  onclick="update(this)"
                  src="../assets/icons/edit.png"
                  alt="edit">
@@ -53,7 +53,6 @@ const createInnerHtml = () => {
   document.querySelector('#table-display').innerHTML = innerHtml;
 };
 
-
 const getDeptHtml = (deptList) => {
   if (!deptList) return '';
   if (!Array.isArray(deptList)) {
@@ -64,4 +63,16 @@ const getDeptHtml = (deptList) => {
     deptHtml += `<div class="dept-label">${dept}</div>`;
   }
   return deptHtml;
+};
+
+const remove = (node) => {
+  console.log("Clicked id:", node.id, typeof node.id);
+  let empPayrollData = empPayrollList.find(data => data._id === Number(node.id));
+  if(!empPayrollData) return;
+  const index = empPayrollList.map(empData => empData._id)
+                              .indexOf(empPayrollData._id);
+  empPayrollList.splice(index, 1);
+  localStorage.setItem('EmployeePayrollList', JSON.stringify(empPayrollList));
+  document.querySelector(".emp-count").textContent = empPayrollList.length;
+  createInnerHtml();
 };

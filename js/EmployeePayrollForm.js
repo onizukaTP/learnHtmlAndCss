@@ -37,12 +37,12 @@ function createAndUpdateStorage(employeePayrollData) {
     } else {
         employeePayrollList = [employeePayrollData]
     }
-    alert(employeePayrollData.toString());
+    // alert(employeePayrollData.toString());
     localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
 }
 
 const createEmployeePayroll = () => {
-    localStorage.removeItem('EmployeePayrollList');
+    // localStorage.removeItem('EmployeePayrollList');
     let employeePayrollData = new EmployeePayrollData();
     try {
         employeePayrollData.name = getInputValueById('#name');
@@ -50,6 +50,7 @@ const createEmployeePayroll = () => {
         setTextValue('.text-error', e);
         throw e;
     }
+    employeePayrollData.id = Date.now();
     employeePayrollData.profilePic = getSelectedValues('[name=profile]')[0];
     employeePayrollData.gender = getSelectedValues('[name=gender]').pop();
     employeePayrollData.department = getSelectedValues('[name=department]');

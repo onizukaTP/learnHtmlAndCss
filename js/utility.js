@@ -1,6 +1,13 @@
 const stringifyDate = (date) => {
-    const options = { day: 'numeric', month: 'short', year: 'numeric' };
-    const newDate = !date ? "undefined" :
-    new Date(Date.parse(date)).toLocaleDateString('en-GB', options);
-    return newDate
-}
+  if (!date) return "undefined";
+
+  const d = typeof date === 'number'
+    ? new Date(date)
+    : new Date(Date.parse(date));
+
+  return d.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  });
+};
