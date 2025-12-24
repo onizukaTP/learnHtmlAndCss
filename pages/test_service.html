@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Ajax Service and Promise</title>
+    <style>
+        .body{margin: auto;}
+        div {
+            border: 1px solid black;
+            background-color: lightblue;
+            padding: 50px;
+            width: 80%;
+            font-size: xx-large;
+            margin-top: 50px;
+        }
+    </style>
+    <script src="../js/httpService.js"></script>
+</head>
+<body>
+    <h1>Test service Result</h1>
+    <div id="get-services"></div>
+    <div id="delete-services"></div>
+    <div id="post-services"></div>
+    <script>
+        const getElem = document.querySelector('#get-services');
+        const getURL = "http://127.0.0.1:3000/employees/1";
+        makePromiseCall("GET", getURL, true)
+            .then(responseText => {
+                getElem.textContent ="Get User Data: " + responseText;
+            })
+            .catch(err => console.log("GET Error:" +JSON.stringify(err)));
+        
+        const delElem = document.querySelector('#delete-services');
+        const delURL = "http://127.0.0.1:3000/employees/4";
+        makePromiseCall("DELETE", delURL, false)
+            .then(responseText => {
+                delElem.textContent="User Deleted: "+responseText;
+            })
+            .catch(err => console.log("DELETE Error:" +JSON.stringify(err)));
+
+        const postElem = document.querySelector('#post-services');
+        const postURL = "http://127.0.0.1:3000/employees";
+        const empData = {"name":"kalki", "salary":"21000"};
+        makePromiseCall("POST", postURL, true, empData)
+            .then(responseText => {
+                postElem.textContent="User Added:" + responseText;
+            })
+            .catch(err => console.log("POST Error:" +JSON.stringify(err)));   
+    </script>
+</body>
+</html>
