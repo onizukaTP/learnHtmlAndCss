@@ -1,6 +1,6 @@
 let XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-function makePromiseCall(methodType, url, callback, async = true, data = null) {
+function makePromiseCall(methodType, url, async = true, data = null) {
     return new Promise(function(resolve, reject) {
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
