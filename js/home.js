@@ -91,9 +91,21 @@ function remove(node) {
   const index = empPayrollList.map(empData => empData.id)
                               .indexOf(empPayrollData.id);
   empPayrollList.splice(index, 1);
-  localStorage.setItem('EmployeePayrollList', JSON.stringify(empPayrollList));
+  if (siteProperties.use_local_storage.match("true")) {
+    localStorage.setItem('EmployeePayrollList', JSON.stringify(empPayrollList));
+    createInnerHtml();
+  } else {
+    const deleteUrl = siteProperties.server_url + empPayrollData.id.toString();
+    makeServiceCall("DELETE", deleteUrl, false)
+      .then(responseText => {
+        createInnerHtml();
+        console.log(responseText);
+      })
+      .catch(err => {
+        console.log("DELETE error sts: " + JSON.stringify(err));
+      });
+  }
   document.querySelector(".emp-count").textContent = empPayrollList.length;
-  createInnerHtml();
 };
 
 function update(node){
