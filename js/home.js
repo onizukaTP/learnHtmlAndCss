@@ -65,7 +65,7 @@ const getDeptHtml = (deptList) => {
   return deptHtml;
 };
 
-const remove = (node) => {
+function remove(node) {
   // console.log("Clicked id:", node.id, typeof node.id);
   let empPayrollData = empPayrollList.find(data => data.id == node.id);
   if(!empPayrollData) return;
@@ -77,7 +77,7 @@ const remove = (node) => {
   createInnerHtml();
 };
 
-const update = (node) => {
+function update(node){
   let empPayrollData = empPayrollList.find(empData => empData.id == node.id);
   if(!empPayrollData) return;
   localStorage.setItem('editEmp', JSON.stringify(empPayrollData));

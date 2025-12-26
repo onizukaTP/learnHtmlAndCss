@@ -1,44 +1,56 @@
 let isUpdated = false;
 let empPayrollObj = {};
 
-window.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener('DOMContentLoaded', () => {
    const name = document.querySelector('#name');
-   name.addEventListener('input', () => {
-        if (name.value.length == 0) {
-            setTextValue('.text-error', '');
-            return;
-        }
-        try {
-            checkName(name);
-            setTextValue('.text-error', '');
-        } catch (e) {
-            setTextValue('.text-error', e);
-        }
-   }); 
+   if (name) {
+     name.addEventListener('input', () => {
+       if (name.value.length === 0) {
+         setTextValue('.text-error', '');
+         return;
+       }
+       try {
+         checkName(name.value);
+         setTextValue('.text-error', '');
+       } catch (e) {
+         setTextValue('.text-error', e);
+       }
+     });
+   }
 
    const salary = document.querySelector('#salary');
-   const output = document.querySelector('.salary-output');
-   output.textContent = salary.value;
-   salary.addEventListener('input', () => {
-        output.textContent = salary.value;
-   });
+   if (salary) {
+     const output = document.querySelector('.salary-output');
+     output.textContent = salary.value;
+     salary.addEventListener('input', () => {
+       output.textContent = salary.value;
+     });
+   }
 
    const date = document.querySelector('#date');
-   date.addEventListener('input', () => {
-    let startDate = getInputValueById('#day') + " " + getInputValueById('#month') + " " +
-    getInputValueById('#year');
-    try {
-        checkStartDate(startDate);
-        setTextValue('.date-error', '');
-    } catch (e) {
-        setTextValue('.date-error', e);
-    }
-   });
+   if (date) {
+     date.addEventListener('input', () => {
+       const startDateStr =
+         getInputValueById('#day') + " " +
+         getInputValueById('#month') + " " +
+         getInputValueById('#year');
+
+       try {
+         const startDate = new Date(Date.parse(startDateStr));
+         checkStartDate(startDate);
+         setTextValue('.date-error', '');
+       } catch (e) {
+         setTextValue('.date-error', e);
+       }
+     });
+   }
 
    checkForUpdate();
 });
 
+
 const save = (event) => {
+    // console.log('save called, event =', event);
     event.preventDefault();
     event.stopPropagation();
     try {
@@ -48,6 +60,7 @@ const save = (event) => {
         resetForm();
         window.location.replace(siteProperties.home_page);
     } catch (e) {
+        // console.log(e);
         return;
     }
 };
@@ -123,28 +136,28 @@ const createNewEmployeeId = () => {
     return empId;
 };
 
-const createEmployeePayroll = () => {
-    // localStorage.removeItem('EmployeePayrollList');
-    let employeePayrollData = new EmployeePayrollData();
-    try {
-        employeePayrollData.name = getInputValueById('#name');
-    } catch (e) {
-        setTextValue('.text-error', e);
-        throw e;
-    }
-    // employeePayrollData.id = Date.now();
-    employeePayrollData.profilePic = getSelectedValues('[name=profile]')[0];
-    employeePayrollData.gender = getSelectedValues('[name=gender]').pop();
-    employeePayrollData.department = getSelectedValues('[name=department]');
-    employeePayrollData.salary = getInputValueById('#salary');
-    employeePayrollData.note = getInputValueById('#note');
-    let date = getInputValueById('#day') + " " + getInputValueById('#month') +
-    " " + getInputValueById('#year');
-    employeePayrollData.startDate = Date.parse(date);
-    // alert(employeePayrollData.toString());
-    // console.log('Data created with id: ' + employeePayrollData.id);
-    return employeePayrollData;
-}
+// const createEmployeePayroll = () => {
+//     // localStorage.removeItem('EmployeePayrollList');
+//     let employeePayrollData = new EmployeePayrollData();
+//     try {
+//         employeePayrollData.name = getInputValueById('#name');
+//     } catch (e) {
+//         setTextValue('.text-error', e);
+//         throw e;
+//     }
+//     // employeePayrollData.id = Date.now();
+//     employeePayrollData.profilePic = getSelectedValues('[name=profile]')[0];
+//     employeePayrollData.gender = getSelectedValues('[name=gender]').pop();
+//     employeePayrollData.department = getSelectedValues('[name=department]');
+//     employeePayrollData.salary = getInputValueById('#salary');
+//     employeePayrollData.note = getInputValueById('#note');
+//     let date = getInputValueById('#day') + " " + getInputValueById('#month') +
+//     " " + getInputValueById('#year');
+//     employeePayrollData.startDate = Date.parse(date);
+//     // alert(employeePayrollData.toString());
+//     // console.log('Data created with id: ' + employeePayrollData.id);
+//     return employeePayrollData;
+// }
 
 const getSelectedValues = (propertyValue) => {
     let allItems = document.querySelectorAll(propertyValue);
