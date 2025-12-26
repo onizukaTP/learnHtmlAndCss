@@ -50,17 +50,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 const save = (event) => {
-    // console.log('save called, event =', event);
+    console.log('save called, event =', event);
     event.preventDefault();
     event.stopPropagation();
     try {
         setEmployeePayrollObj();
-
-        createAndUpdateStorage();
-        resetForm();
-        window.location.replace(siteProperties.home_page);
+        if (siteProperties.use_local_storage.match("true")) {
+            createAndUpdateStorage();
+            resetForm();
+            window.location.replace(siteProperties.home_page);
+        } else {
+            createOrUpdateEmployeePayroll();
+        }
     } catch (e) {
-        // console.log(e);
+        console.log(e);
         return;
     }
 };
@@ -78,6 +81,23 @@ const setEmployeePayrollObj = () => {
     let date = getInputValueById('#day') + " " + getInputValueById('#month') + " " +
     getInputValueById('#year');
     empPayrollObj._startDate = date;
+}
+
+function createOrUpdateEmployeePayroll() {
+    let postUrl = siteProperties.server_url;
+    let methodCall = "POST";
+    if (isUpdated) {
+        methodCall = "PUT";
+        postUrl +=empPayrollObj.id.toString();
+    } 
+    makeServiceCall(methodCall, postUrl, true, empPayrollObj)
+        .then(responseText => {
+            resetForm();
+            window.location.replace(siteProperties.home_page);
+        })
+        .catch(error => {
+            throw error;
+        });
 }
 
 function createAndUpdateStorage() {
@@ -176,14 +196,18 @@ const getInputValueById = (id) => {
 const setForm = () => {
     // console.log("setForm called");
     // console.log("empPayrollObj:", empPayrollObj);
+    // console.log("Setting name...");
     setValue('#name', empPayrollObj._name);
     setSelectedValues('[name=profile]', empPayrollObj._profilePic);
     setSelectedValues('[name=gender]', empPayrollObj._gender);
     setSelectedValues('[name=department]', empPayrollObj._department);
     setValue('#salary', empPayrollObj._salary);
+    // console.log("Setting salary...")
     setTextValue('.salary-output', empPayrollObj._salary);
+    // console.log("Setting Note...");
     setValue('#note', empPayrollObj._note);
     const date = new Date(empPayrollObj._startDate);
+    // console.log("Setting Date...");
     setValue('#day', date.getDate().toString());
     setValue('#month', date.toLocaleString('en-GB', { month: 'short' }));
     setValue('#year', date.getFullYear().toString());
@@ -224,11 +248,13 @@ const unSetSelectedValues = (propertyValue) => {
 
 const setTextValue = (id, value) => {
     const element = document.querySelector(id);
+    if (element === null) return;
     element.textContent = value;
 };
 
 const setValue = (id, value) => {
     const element = document.querySelector(id);
+    if (element === null) return;
     element.value = value;
 };
 

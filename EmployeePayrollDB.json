@@ -5,7 +5,9 @@
       "_name": "Abhisheak",
       "_gender": "male",
       "_department": [
-        "sales"
+        "HR",
+        "Sales",
+        "Finance"
       ],
       "_salary": "350000",
       "_startDate": "25 Dec 2025",
@@ -17,8 +19,8 @@
       "_name": "Maalik",
       "_gender": "male",
       "_department": [
-        "sales",
-        "HR"
+        "Sales",
+        "Finance"
       ],
       "_salary": "380000",
       "_startDate": "20 Dec 2025",
@@ -30,12 +32,25 @@
       "_name": "sowmya",
       "_gender": "female",
       "_department": [
-        "HR"
+        "HR",
+        "Sales"
       ],
       "_salary": "450000",
       "_startDate": "1 Dec 2025",
       "_note": "",
-      "_profilePic": "../assets/portrait-beautiful-redhead-woman_23-2148339229.avif"
+      "_profilePic": "../assets/happy-young-man-laughing_23-2148911860.avif"
+    },
+    {
+      "id": "bfab",
+      "_name": "Kalki",
+      "_profilePic": "../assets/portrait-beautiful-redhead-woman_23-2148339229.avif",
+      "_gender": "female",
+      "_department": [
+        "Engineer"
+      ],
+      "_salary": "460000",
+      "_note": "",
+      "_startDate": "28 Nov 2025"
     }
   ]
 }
