@@ -1,0 +1,41 @@
+{
+  "EmployeePayrollDB": [
+    {
+      "id": "1",
+      "_name": "Abhisheak",
+      "_gender": "male",
+      "_department": [
+        "sales"
+      ],
+      "_salary": "350000",
+      "_startDate": "25 Dec 2025",
+      "_note": "",
+      "_profilePic": "../assets/handsome-indonesian-southeast-asian-man-260nw-2476654675.webp"
+    },
+    {
+      "id": "2",
+      "_name": "Maalik",
+      "_gender": "male",
+      "_department": [
+        "sales",
+        "HR"
+      ],
+      "_salary": "380000",
+      "_startDate": "20 Dec 2025",
+      "_note": "",
+      "_profilePic": "../assets/happy-young-man-laughing_23-2148911860.avif"
+    },
+    {
+      "id": "a447",
+      "_name": "sowmya",
+      "_gender": "female",
+      "_department": [
+        "HR"
+      ],
+      "_salary": "450000",
+      "_startDate": "1 Dec 2025",
+      "_note": "",
+      "_profilePic": "../assets/portrait-beautiful-redhead-woman_23-2148339229.avif"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Employee Payroll Service</title>
+    <style>
+        .body{margin: auto;}
+        div {
+            border: 1px solid black;
+            background-color: lightblue;
+            padding: 50px;
+            width: 80%;
+            font-size: xx-large;
+            margin-top: 50px;
+        }
+    </style>
+    <script src="../js/DBService.js"></script>
+</head>
+<body>
+    <h1>Test Service Result</h1>
+    <div id="get-services"></div>
+    <div id="delete-services"></div>
+    <div id="post-services"></div>
+    <script>
+        const getElem = document.querySelector('#get-services');
+        const getURL = "http://127.0.0.1:3000/EmployeePayrollDB/1";
+        makeServiceCall("GET", getURL, true)
+            .then(responseText => {
+                getElem.textContent ="Get User Data: " + responseText;
+            })
+            .catch(err => console.log("GET Error:" +JSON.stringify(err)));
+        
+        const delElem = document.querySelector('#delete-services');
+        const delURL = "http://127.0.0.1:3000/EmployeePayrollDB/3";
+        makeServiceCall("DELETE", delURL, false)
+            .then(responseText => {
+                delElem.textContent="User Deleted: "+responseText;
+            })
+            .catch(err => console.log("DELETE Error:" +JSON.stringify(err)));
+
+        const postElem = document.querySelector('#post-services');
+        const postURL = "http://127.0.0.1:3000/EmployeePayrollDB/";
+        const empData = {
+            "_name": "sowmya",
+            "_gender": "female",
+            "_department": [
+                "HR"
+            ],
+            "_salary": "450000",
+            "_startDate": "1 Dec 2025",
+            "_note": "",
+            "_profilePic": "../assets/portrait-beautiful-redhead-woman_23-2148339229.avif"
+        }
+        makeServiceCall("POST", postURL, true, empData)
+            .then(responseText => {
+                postElem.textContent="User Added:" + responseText;
+            })
+            .catch(err => console.log("POST Error:" +JSON.stringify(err)));   
+    </script>
+</body>
+</html>
